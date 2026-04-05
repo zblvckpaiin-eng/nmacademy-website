@@ -224,38 +224,6 @@
       -webkit-backdrop-filter: blur(24px);
     }
 
-    .navbar-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-
-    .navbar-logo:hover {
-      opacity: 0.85;
-      transform: scale(1.02);
-    }
-
-    .navbar-logo video,
-    .navbar-logo img {
-      height: 48px;
-      width: auto;
-      display: block;
-      object-fit: contain;
-    }
-
-    .footer-logo video,
-    .footer-logo img {
-      height: 38px;
-      width: auto;
-      display: block;
-      opacity: 0.7;
-      transition: opacity 0.3s;
-      object-fit: contain;
-    }
-
-    .footer-logo:hover video,
-    .footer-logo:hover img { opacity: 1; }
 
     /* ── About section animated logo ── */
     .about-logo-video {
@@ -891,43 +859,6 @@
     }
 
     /* ── Poster ── */
-    .poster-section { text-align: center; }
-
-    .poster-frame {
-      position: relative;
-      max-width: 480px;
-      margin: 72px auto 0;
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.015);
-      box-shadow: 0 60px 120px -30px rgba(0,0,0,0.8);
-    }
-
-    .poster-frame::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 28px;
-      padding: 1px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 40%, rgba(255,255,255,0.06) 100%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .poster-logo-video {
-      width: 100%;
-      height: auto;
-      display: block;
-      position: relative;
-      z-index: 1;
-      object-fit: contain;
-      padding: 48px;
-      aspect-ratio: 3 / 4;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
-    }
 
     /* ── Why ── */
     .why-section { text-align: center; }
@@ -1292,8 +1223,6 @@
 
       .nav-links { display: none; }
       .mobile-menu-btn { display: block; }
-      .navbar-logo img { height: 36px; }
-
       .hero-content { padding: 140px 20px 100px; }
       .hero-heading { letter-spacing: -1.5px; }
 
@@ -1306,8 +1235,6 @@
       .footer-cols { flex-direction: column; gap: 28px; }
       .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
       .about-stats { gap: 24px; flex-wrap: wrap; }
-
-      .poster-frame { border-radius: 16px; }
 
       .hero-cta { padding: 16px 36px; font-size: 14px; }
 
@@ -1333,7 +1260,6 @@
     <!-- Navbar -->
     <div class="navbar-wrap" id="navbarWrap">
       <nav class="navbar">
-        <a class="navbar-logo" href="#home"><video src="nm-logo-nav.mp4" autoplay loop muted playsinline preload="auto" aria-label="NM Academy"></video></a>
         <ul class="nav-links">
           <li><a class="nav-link" href="#home">Home</a></li>
           <li><a class="nav-link" href="#mentorship">Mentorship</a></li>
@@ -1643,18 +1569,6 @@
     </div>
   </section>
 
-  <!-- ═══════ POSTER ═══════ -->
-  <div class="section-divider"></div>
-  <section class="poster-section section-pad" id="poster">
-    <div class="section-label reveal"><span class="label-line"></span>Campaign</div>
-    <h2 class="section-title reveal">The Standard is Set</h2>
-    <p class="section-subtitle reveal" style="margin:0 auto;">Professional trading education, presented at the level it deserves.</p>
-
-    <div class="poster-frame reveal">
-<video class="poster-logo-video" src="nm-logo-section.mp4" autoplay loop muted playsinline preload="auto" aria-label="NM Academy"></video>
-    </div>
-  </section>
-
   <!-- ═══════ WHY NM ACADEMY ═══════ -->
   <div class="section-divider"></div>
   <section class="why-section section-pad">
@@ -1724,7 +1638,6 @@
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="navbar-logo footer-logo" href="#home"><video src="nm-logo-nav.mp4" autoplay loop muted playsinline preload="auto" aria-label="NM Academy"></video></a>
         <p>Professional trading education. Structured mentorship. Premium community.</p>
       </div>
       <div class="footer-cols">
