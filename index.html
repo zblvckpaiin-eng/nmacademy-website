@@ -224,23 +224,33 @@
       -webkit-backdrop-filter: blur(24px);
     }
 
-    .logo-wordmark {
-      font-family: 'Instrument Serif', serif;
-      font-size: 28px;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.5px;
+    .navbar-logo {
       display: flex;
-      align-items: baseline;
-      gap: 2px;
+      align-items: center;
+      text-decoration: none;
+      transition: opacity 0.3s, transform 0.3s;
     }
 
-    .logo-wordmark sup {
-      font-size: 10px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      opacity: 0.5;
+    .navbar-logo:hover {
+      opacity: 0.85;
+      transform: scale(1.02);
     }
+
+    .navbar-logo img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-logo img {
+      height: 36px;
+      width: auto;
+      display: block;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .footer-logo:hover img { opacity: 1; }
 
     .nav-links {
       display: flex;
@@ -1135,6 +1145,7 @@
       border: none;
       cursor: pointer;
       padding: 6px;
+      z-index: 110;
     }
 
     .mobile-menu-btn span {
@@ -1145,6 +1156,91 @@
       margin: 5px 0;
       transition: transform 0.3s, opacity 0.3s;
       border-radius: 2px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* ── Mobile menu overlay ── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 105;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu a {
+      font-family: 'Instrument Serif', serif;
+      font-size: 32px;
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.3s, transform 0.3s;
+      transform: translateY(10px);
+    }
+
+    .mobile-menu.open a {
+      transform: translateY(0);
+    }
+
+    .mobile-menu a:hover { opacity: 1; }
+
+    .mobile-menu .mobile-menu-cta {
+      margin-top: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      padding: 16px 40px;
+      border-radius: 9999px;
+    }
+
+    /* ── Premium button hover enhancements ── */
+    .liquid-glass {
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s, background 0.3s;
+    }
+
+    .liquid-glass:hover {
+      transform: scale(1.03) translateY(-1px);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.15), 0 8px 32px rgba(255,255,255,0.04);
+    }
+
+    .liquid-glass-solid {
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s, background 0.3s;
+    }
+
+    .liquid-glass-solid:hover {
+      transform: scale(1.03) translateY(-1px);
+      background: #fff;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 8px 32px rgba(255,255,255,0.08);
+    }
+
+    /* Ensure solid buttons always have black text */
+    .liquid-glass-solid,
+    .liquid-glass-solid:hover,
+    .liquid-glass-solid:focus,
+    .liquid-glass-solid:active {
+      color: #000;
     }
 
     /* ── Ultra-wide / curved monitor ── */
@@ -1188,6 +1284,7 @@
 
       .nav-links { display: none; }
       .mobile-menu-btn { display: block; }
+      .navbar-logo img { height: 36px; }
 
       .hero-content { padding: 140px 20px 100px; }
       .hero-heading { letter-spacing: -1.5px; }
@@ -1228,7 +1325,7 @@
     <!-- Navbar -->
     <div class="navbar-wrap" id="navbarWrap">
       <nav class="navbar">
-        <a class="logo-wordmark" href="#home">NM Academy<sup>&reg;</sup></a>
+        <a class="navbar-logo" href="#home"><img src="logo-nav.png" alt="NM Academy" /></a>
         <ul class="nav-links">
           <li><a class="nav-link" href="#home">Home</a></li>
           <li><a class="nav-link" href="#mentorship">Mentorship</a></li>
@@ -1237,12 +1334,23 @@
           <li><a class="nav-link" href="#about">About</a></li>
         </ul>
         <div style="display:flex;align-items:center;gap:12px;">
-          <a class="nav-btn liquid-glass" href="#mentorship" style="border-radius:9999px;">Begin Journey</a>
+          <a class="nav-btn liquid-glass" href="https://whop.com/nmacademy" target="_blank" rel="noopener" style="border-radius:9999px;">Begin Journey</a>
           <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
             <span></span><span></span><span></span>
           </button>
         </div>
       </nav>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#home" class="mobile-menu-link">Home</a>
+      <a href="#mentorship" class="mobile-menu-link">Mentorship</a>
+      <a href="#curriculum" class="mobile-menu-link">Curriculum</a>
+      <a href="#community" class="mobile-menu-link">Community</a>
+      <a href="#about" class="mobile-menu-link">About</a>
+      <a class="mobile-menu-cta liquid-glass-solid" href="https://whop.com/nmacademy" target="_blank" rel="noopener">Join Mentorship</a>
+      <a class="mobile-menu-cta liquid-glass" href="https://discord.gg/D3jTNrrA" target="_blank" rel="noopener">Join Discord</a>
     </div>
 
     <!-- Hero Content -->
@@ -1260,8 +1368,8 @@
       </p>
 
       <div class="hero-cta-group animate-fade-rise-delay-2">
-        <a class="hero-cta liquid-glass-solid" href="#mentorship" style="border-radius:9999px;">Explore Mentorship</a>
-        <a class="hero-cta liquid-glass" href="#community" style="border-radius:9999px;">Join Discord</a>
+        <a class="hero-cta liquid-glass-solid" href="https://whop.com/nmacademy" target="_blank" rel="noopener" style="border-radius:9999px;">Join Mentorship</a>
+        <a class="hero-cta liquid-glass" href="https://discord.gg/D3jTNrrA" target="_blank" rel="noopener" style="border-radius:9999px;">Join Discord</a>
       </div>
     </div>
   </section>
@@ -1338,7 +1446,7 @@
           <li><span class="check"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>Public Trading Community Chat</li>
           <li><span class="check"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>HTF Analysis Access</li>
         </ul>
-        <a class="offer-cta liquid-glass" href="#" style="border-radius:9999px;">Join Discord</a>
+        <a class="offer-cta liquid-glass" href="https://discord.gg/D3jTNrrA" target="_blank" rel="noopener" style="border-radius:9999px;">Join Discord</a>
       </div>
 
       <!-- Featured -->
@@ -1359,7 +1467,7 @@
           <li><span class="check"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>SMT &amp; Trade Management</li>
           <li><span class="check"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>Live Sessions — London, NY AM + PM (2x/week)</li>
         </ul>
-        <a class="offer-cta liquid-glass-solid" href="#" style="border-radius:9999px;">Get Started</a>
+        <a class="offer-cta liquid-glass-solid" href="https://whop.com/nmacademy" target="_blank" rel="noopener" style="border-radius:9999px;">Get Started</a>
       </div>
 
       <!-- 1:1 -->
@@ -1375,7 +1483,7 @@
           <li><span class="check"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>Direct access for questions</li>
           <li><span class="check"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>Tailored development plan</li>
         </ul>
-        <a class="offer-cta liquid-glass" href="#" style="border-radius:9999px;">Apply Now</a>
+        <a class="offer-cta liquid-glass" href="https://whop.com/nmacademy" target="_blank" rel="noopener" style="border-radius:9999px;">Apply Now</a>
       </div>
     </div>
   </section>
@@ -1524,7 +1632,7 @@
     </div>
 
     <div style="margin-top:56px;" class="reveal">
-      <a class="hero-cta liquid-glass" href="#" style="border-radius:9999px;padding:16px 40px;">Join the Community</a>
+      <a class="hero-cta liquid-glass" href="https://discord.gg/D3jTNrrA" target="_blank" rel="noopener" style="border-radius:9999px;padding:16px 40px;">Join the Community</a>
     </div>
   </section>
 
@@ -1603,8 +1711,8 @@
     <h2 class="cta-heading reveal">Ready to Trade<br>with <em style="font-family:'Instrument Serif',serif;font-style:italic;opacity:0.7;">Structure</em>?</h2>
     <p class="cta-sub reveal">Join a professional trading education built for traders who refuse to settle for mediocrity.</p>
     <div class="cta-buttons reveal">
-      <a class="hero-cta liquid-glass-solid" href="#mentorship" style="border-radius:9999px;">Explore Mentorship</a>
-      <a class="hero-cta liquid-glass" href="#" style="border-radius:9999px;">Join Discord</a>
+      <a class="hero-cta liquid-glass-solid" href="https://whop.com/nmacademy" target="_blank" rel="noopener" style="border-radius:9999px;">Explore Mentorship</a>
+      <a class="hero-cta liquid-glass" href="https://discord.gg/D3jTNrrA" target="_blank" rel="noopener" style="border-radius:9999px;">Join Discord</a>
     </div>
   </section>
 
@@ -1613,7 +1721,7 @@
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="logo-wordmark" href="#home" style="font-size:24px;">NM Academy<sup>&reg;</sup></a>
+        <a class="navbar-logo footer-logo" href="#home"><img src="logo-nav.png" alt="NM Academy" /></a>
         <p>Professional trading education. Structured mentorship. Premium community.</p>
       </div>
       <div class="footer-cols">
@@ -1629,10 +1737,10 @@
         <div class="footer-col">
           <h5>Connect</h5>
           <ul>
-            <li><a href="#">Discord</a></li>
+            <li><a href="https://discord.gg/D3jTNrrA" target="_blank" rel="noopener">Discord</a></li>
+            <li><a href="https://whop.com/nmacademy" target="_blank" rel="noopener">Whop</a></li>
             <li><a href="#">Twitter / X</a></li>
             <li><a href="#">Instagram</a></li>
-            <li><a href="#">Newsletter</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1648,7 +1756,7 @@
     <div class="footer-bottom">
       <p>&copy; 2026 NM Academy. All rights reserved.</p>
       <div class="footer-socials">
-        <a href="#" aria-label="Discord">
+        <a href="https://discord.gg/D3jTNrrA" target="_blank" rel="noopener" aria-label="Discord">
           <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
         </a>
         <a href="#" aria-label="Twitter">
@@ -1666,6 +1774,25 @@
     const navWrap = document.getElementById('navbarWrap');
     window.addEventListener('scroll', () => {
       navWrap.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Mobile menu ──
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileBtn.addEventListener('click', () => {
+      mobileBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileBtn.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
     });
 
     // ── Scroll reveal ──
