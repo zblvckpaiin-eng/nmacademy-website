@@ -236,21 +236,51 @@
       transform: scale(1.02);
     }
 
+    .navbar-logo video,
     .navbar-logo img {
-      height: 44px;
+      height: 48px;
       width: auto;
       display: block;
+      object-fit: contain;
     }
 
+    .footer-logo video,
     .footer-logo img {
-      height: 36px;
+      height: 38px;
       width: auto;
       display: block;
       opacity: 0.7;
       transition: opacity 0.3s;
+      object-fit: contain;
     }
 
+    .footer-logo:hover video,
     .footer-logo:hover img { opacity: 1; }
+
+    /* ── About section animated logo ── */
+    .about-logo-video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      padding: 40px;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-visual::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 24px;
+      background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 2;
+    }
 
     .nav-links {
       display: flex;
@@ -865,7 +895,7 @@
 
     .poster-frame {
       position: relative;
-      max-width: 800px;
+      max-width: 480px;
       margin: 72px auto 0;
       border-radius: 28px;
       overflow: hidden;
@@ -887,38 +917,16 @@
       z-index: 3;
     }
 
-    .poster-placeholder {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
-      position: relative;
-    }
-
-    .poster-placeholder-logo {
-      font-family: 'Instrument Serif', serif;
-      font-size: 40px;
-      color: rgba(255,255,255,0.06);
-      letter-spacing: 4px;
-    }
-
-    .poster-placeholder-text {
-      font-size: 12px;
-      color: rgba(255,255,255,0.2);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .poster-frame img {
+    .poster-logo-video {
       width: 100%;
       height: auto;
       display: block;
       position: relative;
       z-index: 1;
+      object-fit: contain;
+      padding: 48px;
+      aspect-ratio: 3 / 4;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
     }
 
     /* ── Why ── */
@@ -1325,7 +1333,7 @@
     <!-- Navbar -->
     <div class="navbar-wrap" id="navbarWrap">
       <nav class="navbar">
-        <a class="navbar-logo" href="#home"><img src="logo-nav.png" alt="NM Academy" /></a>
+        <a class="navbar-logo" href="#home"><video src="nm-logo-nav.mp4" autoplay loop muted playsinline preload="auto" aria-label="NM Academy"></video></a>
         <ul class="nav-links">
           <li><a class="nav-link" href="#home">Home</a></li>
           <li><a class="nav-link" href="#mentorship">Mentorship</a></li>
@@ -1587,8 +1595,7 @@
     </div>
     <div class="about-right reveal">
       <div class="about-visual">
-        <canvas class="about-3d-canvas" id="about3d"></canvas>
-        <span class="about-watermark">NM</span>
+        <video class="about-logo-video" src="nm-logo-section.mp4" autoplay loop muted playsinline preload="auto" aria-label="NM Academy Logo Animation"></video>
       </div>
     </div>
   </section>
@@ -1644,11 +1651,7 @@
     <p class="section-subtitle reveal" style="margin:0 auto;">Professional trading education, presented at the level it deserves.</p>
 
     <div class="poster-frame reveal">
-      <!-- PLACEHOLDER: Replace the div below with <img src="poster.jpg" alt="NM Academy Poster" /> -->
-      <div class="poster-placeholder">
-        <span class="poster-placeholder-logo">NM Academy</span>
-        <span class="poster-placeholder-text">Promotional poster — insert image here</span>
-      </div>
+<video class="poster-logo-video" src="nm-logo-section.mp4" autoplay loop muted playsinline preload="auto" aria-label="NM Academy"></video>
     </div>
   </section>
 
@@ -1721,7 +1724,7 @@
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="navbar-logo footer-logo" href="#home"><img src="logo-nav.png" alt="NM Academy" /></a>
+        <a class="navbar-logo footer-logo" href="#home"><video src="nm-logo-nav.mp4" autoplay loop muted playsinline preload="auto" aria-label="NM Academy"></video></a>
         <p>Professional trading education. Structured mentorship. Premium community.</p>
       </div>
       <div class="footer-cols">
@@ -1875,77 +1878,7 @@
       draw();
     })();
 
-    // ── About section 3D wireframe globe ──
-    (function() {
-      const c = document.getElementById('about3d');
-      if (!c) return;
-      const ctx = c.getContext('2d');
-      let w, h, tick = 0;
-
-      function resize() {
-        const rect = c.parentElement.getBoundingClientRect();
-        w = c.width = rect.width;
-        h = c.height = rect.height;
-      }
-
-      function draw() {
-        tick += 0.004;
-        ctx.clearRect(0, 0, w, h);
-
-        const cx = w / 2, cy = h / 2;
-        const r = Math.min(w, h) * 0.35;
-
-        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
-        ctx.lineWidth = 0.6;
-
-        // Latitude lines
-        for (let lat = -3; lat <= 3; lat++) {
-          const phi = (lat / 4) * Math.PI * 0.5;
-          const rr = r * Math.cos(phi);
-          const yy = cy + r * Math.sin(phi) * 0.3;
-          ctx.beginPath();
-          for (let i = 0; i <= 64; i++) {
-            const theta = (i / 64) * Math.PI * 2;
-            const x = cx + rr * Math.cos(theta);
-            const y = yy + rr * Math.sin(theta) * 0.3;
-            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-          }
-          ctx.stroke();
-        }
-
-        // Longitude lines (rotating)
-        for (let lon = 0; lon < 8; lon++) {
-          const offset = tick + (lon / 8) * Math.PI * 2;
-          ctx.beginPath();
-          for (let i = 0; i <= 64; i++) {
-            const phi = (i / 64) * Math.PI * 2;
-            const x = cx + r * Math.cos(phi) * Math.cos(offset);
-            const y = cy + r * Math.sin(phi) * 0.3 + r * Math.cos(phi) * Math.sin(offset) * 0.3;
-            i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-          }
-          ctx.stroke();
-        }
-
-        // Data points (orbiting)
-        for (let i = 0; i < 12; i++) {
-          const a = tick * 0.5 + (i / 12) * Math.PI * 2;
-          const phi = Math.sin(tick * 0.3 + i * 1.7) * 0.7;
-          const px = cx + r * Math.cos(a) * Math.cos(phi);
-          const py = cy + r * Math.sin(a) * 0.3 + r * Math.cos(a) * Math.sin(phi) * 0.3;
-          const alpha = 0.15 + Math.sin(tick + i) * 0.1;
-          ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-          ctx.beginPath();
-          ctx.arc(px, py, 2, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        requestAnimationFrame(draw);
-      }
-
-      window.addEventListener('resize', resize);
-      resize();
-      draw();
-    })();
+    // About section 3D globe removed — replaced by animated MP4 logo
   </script>
 </body>
 </html>
